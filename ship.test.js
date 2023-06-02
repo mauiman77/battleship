@@ -36,3 +36,32 @@ describe('create various ships', () => {
       .toBe('Boat\'s name must have a character. Boat\'s size must be greater than 1 and less than 11.')
   })
 })
+
+describe('Test boat hit function', () => {
+  let boat
+  beforeEach(() => {
+    boat = shipTest('Boat', 5)
+  })
+
+  it('Boat damage', () => {
+    boat.hit()
+    expect(boat.getLives())
+      .toBe(4)
+  })
+
+  it('Multiple boat damage', () => {
+    for (let i = 0; i < 4; i++) {
+      boat.hit()
+    }
+    expect(boat.getLives())
+      .toBe(1)
+  })
+
+  it('Hit until lives are 0', () => {
+    for (let i = 0; i < 5; i++) {
+      boat.hit()
+    }
+    expect(boat.getLives())
+      .toBe(0)
+  })
+})
