@@ -8,6 +8,9 @@ var Ship = function (name, size) {
     var getLives = function () {
         return lives;
     };
-    return { name: name, size: size, hit: hit, getLives: getLives };
+    var isSunk = function () {
+        return lives < 1;
+    };
+    return { name: name, size: size, hit: hit, getLives: getLives, isSunk: isSunk };
 };
 module.exports = Ship;

@@ -65,3 +65,24 @@ describe('Test boat hit function', () => {
       .toBe(0)
   })
 })
+
+describe('Test if boat can sink', () => {
+  let boat
+  beforeEach(() => {
+    boat = shipTest('Boat', 5)
+  })
+
+  it('Boat not sunk', () => {
+    boat.hit()
+    expect(boat.isSunk())
+      .toBe(false)
+  })
+
+  it('Boat sunk', () => {
+    for (let i = 0; i < 5; i++) {
+      boat.hit()
+    }
+    expect(boat.isSunk())
+      .toBe(true)
+  })
+})

@@ -10,7 +10,11 @@ const Ship = (name : string, size : number) => {
     return lives;
   }
 
-  return {name, size, hit, getLives};
+  const isSunk = () => {
+    return lives < 1;
+  }
+
+  return {name, size, hit, getLives, isSunk};
 }
 
 module.exports = Ship
