@@ -38,4 +38,53 @@ describe('Place ships on board', () => {
     board.placeShip(boat.name, boat.size, ['S', 3])
     expect(board.getCoords()).toStrictEqual([])
   })
+
+  it('Test store ship variables', () => {
+    board = gameBoardTest('Ships')
+    boat = shipTest('Boat', 3)
+    board.placeShip(boat.name, boat.size, ['A', 3])
+    board.storeShipVariable(boat)
+    board.getShipsOnBoard('Boat').hit()
+    expect(boat.getLives()).toBe(2)
+  })
+})
+
+describe('Tests for receiving hits', () => {
+  let boat
+  let board = gameBoardTest('Ships')
+
+  it('Attack a co-ordinate', () => {
+    board = gameBoardTest('Ships')
+    expect(board.receiveAttack('A', 3)).toMatchObject({ vert: 'A', horiz: 3 })
+  })
+
+  it('Records hit co-ordinates', () => {
+    board = gameBoardTest('Ships')
+    board.receiveAttack('D', 5)
+    expect(board.getHitCoords()).toStrictEqual([{ vert: 'D', horiz: 5 }])
+  })
+
+  it('Records multiple hit co-ordinates', () => {
+    board = gameBoardTest('Ships')
+    board.receiveAttack('D', 5)
+    board.receiveAttack('E', 4)
+    board.receiveAttack('B', 2)
+    expect(board.getHitCoords()).toStrictEqual([{ vert: 'D', horiz: 5 }, { vert: 'E', horiz: 4 }, { vert: 'B', horiz: 2 }])
+  })
+
+  it('Does not allow multiple hits on same co-ordinate', () => {
+    board = gameBoardTest('Ships')
+    board.receiveAttack('D', 5)
+    board.receiveAttack('D', 5)
+    expect(board.getHitCoords()).toStrictEqual([{ vert: 'D', horiz: 5 }])
+  })
+
+  it('Boats on hit coord lose lives', () => {
+    board = gameBoardTest('Ships')
+    boat = shipTest('Boat', 3)
+    board.receiveAttack('A', 3)
+    board.storeShipVariable(boat)
+    board.getShipsOnBoard(boat.name).hit()
+    expect(boat.getLives()).toBe(2)
+  })
 })
