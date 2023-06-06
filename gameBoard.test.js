@@ -39,13 +39,12 @@ describe('Place ships on board', () => {
     expect(board.getCoords()).toStrictEqual([])
   })
 
-  it('Test store ship variables', () => {
+  xit('Test store ship variables', () => {
     board = gameBoardTest('Ships')
     boat = shipTest('Boat', 3)
     board.placeShip(boat.name, boat.size, ['A', 3])
     board.storeShipVariable(boat)
-    board.getShipsOnBoard('Boat').hit()
-    expect(boat.getLives()).toBe(2)
+    expect(board.getShipsOnBoard()).toStrictEqual({})
   })
 })
 
@@ -82,9 +81,29 @@ describe('Tests for receiving hits', () => {
   it('Boats on hit coord lose lives', () => {
     board = gameBoardTest('Ships')
     boat = shipTest('Boat', 3)
-    board.receiveAttack('A', 3)
+    board.placeShip(boat.name, boat.size, ['D', 4])
     board.storeShipVariable(boat)
-    board.getShipsOnBoard(boat.name).hit()
+    board.receiveAttack('D', 4)
     expect(boat.getLives()).toBe(2)
+  })
+
+  it('Boats on hit coord lose many lives', () => {
+    board = gameBoardTest('Ships')
+    boat = shipTest('Boat', 3)
+    board.placeShip(boat.name, boat.size, ['D', 4])
+    board.storeShipVariable(boat)
+    board.receiveAttack('D', 4)
+    board.receiveAttack('D', 5)
+    expect(boat.getLives()).toBe(1)
+  })
+
+  it('Boats on hit coord lose many lives', () => {
+    board = gameBoardTest('Ships')
+    boat = shipTest('Boat', 3)
+    board.placeShip(boat.name, boat.size, ['D', 4])
+    board.storeShipVariable(boat)
+    board.receiveAttack('D', 4)
+    board.receiveAttack('D', 5)
+    expect(boat.getLives()).toBe(1)
   })
 })

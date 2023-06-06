@@ -18,6 +18,12 @@ const Gameboard = function (name) {
     if (hitCoords.find(i => i.vert === vertical && i.horiz === horizontal)) return 'Already hit.'
     const attackCoord = { vert: vertical, horiz: horizontal }
     hitCoords.push(attackCoord)
+
+    const lookUpShipCoords = shipCoords.find(x => x.vertical === vertical && (horizontal >= x.horizontal[0] && horizontal <= x.horizontal[1]))
+    if (lookUpShipCoords) {
+      const shipToHit = shipsOnBoard.find(y => y.name === lookUpShipCoords.title)
+      shipToHit.hit()
+    }
     return attackCoord
   }
 
