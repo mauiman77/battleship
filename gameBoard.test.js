@@ -106,4 +106,68 @@ describe('Tests for receiving hits', () => {
     board.receiveAttack('D', 5)
     expect(boat.getLives()).toBe(1)
   })
+
+  it('Boats can sink', () => {
+    board = gameBoardTest('Ships')
+    boat = shipTest('Boat', 3)
+    board.placeShip(boat.name, boat.size, ['E', 4])
+    board.storeShipVariable(boat)
+    board.receiveAttack('E', 4)
+    board.receiveAttack('E', 5)
+    board.receiveAttack('E', 6)
+    expect(boat.isSunk()).toBe(true)
+  })
+
+  it('Boats don\'t sink too early', () => {
+    board = gameBoardTest('Ships')
+    boat = shipTest('Boat', 3)
+    board.placeShip(boat.name, boat.size, ['E', 4])
+    board.storeShipVariable(boat)
+    board.receiveAttack('E', 4)
+    board.receiveAttack('E', 5)
+    expect(boat.isSunk()).toBe(false)
+  })
+
+  it('Boats can\'t lose multiple lives from same attack coordinate', () => {
+    board = gameBoardTest('Ships')
+    boat = shipTest('Boat', 3)
+    board.placeShip(boat.name, boat.size, ['E', 4])
+    board.storeShipVariable(boat)
+    board.receiveAttack('E', 4)
+    board.receiveAttack('E', 4)
+    expect(boat.getLives()).toBe(2)
+  })
 })
+
+describe('Check for all ships sunk on board', () => {
+  let boat
+  let otherBoat
+  let board = gameBoardTest('Ships')
+
+  it('Not all sunk with one on board', () => {
+    board = gameBoardTest('Ships')
+    boat = shipTest('SinkMe', 3)
+    board.placeShip(boat.name, boat.size, ['E', 4])
+    board.storeShipVariable(boat)
+    expect(board.allSunk()).toBe(false)
+  })
+
+  it('All sunk with one on board', () => {
+    board = gameBoardTest('Ships')
+    boat = shipTest('SinkMe', 3)
+    board.placeShip(boat.name, boat.size, ['E', 4])
+    board.storeShipVariable(boat)
+    board.receiveAttack('E', 4)
+    board.receiveAttack('E', 5)
+    board.receiveAttack('E', 6)
+    expect(board.allSunk()).toBe(true)
+  })
+})
+
+// it('Boats can\'t lose multiple lives from same attack coordinate', () => {
+//   board = gameBoardTest('Ships')
+//   boat = shipTest('Boat', 3)
+//   board.placeShip(boat.name, boat.size, ['E', 4])
+//   board.storeShipVariable(boat)
+//   expect(board.getShipsOnBoard()).toStrictEqual([])
+// })

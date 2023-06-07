@@ -57,6 +57,12 @@ const Gameboard = function (name) {
     return shipCoords
   }
 
-  return { name, placeShip, getCoords, receiveAttack, getHitCoords, storeShipVariable, getShipsOnBoard }
+  const checkSunk = (current) => current.isSunk() === true
+
+  const allSunk = () => {
+    return shipsOnBoard.every(checkSunk)
+  }
+
+  return { name, placeShip, getCoords, receiveAttack, getHitCoords, storeShipVariable, getShipsOnBoard, allSunk }
 }
 module.exports = Gameboard
