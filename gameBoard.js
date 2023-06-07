@@ -38,6 +38,9 @@ const Gameboard = function (name) {
       vertical: getVertical(coords[0]),
       horizontal: getHorizontalLength(coords[1], size)
     }
+
+    if (shipCoords.find(y => y.vertical === shipToPlace.vertical && (shipToPlace.horizontal[0] >= y.horizontal[0] && shipToPlace.horizontal[1] <= y.horizontal[1]))) return 'Overlaps'
+
     if (shipToPlace.horizontal && shipToPlace.vertical) {
       shipCoords.push(shipToPlace)
     }

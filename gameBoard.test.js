@@ -9,6 +9,7 @@ describe('Create board', () => {
 
 describe('Place ships on board', () => {
   let boat
+  let otherBoat
   let board = gameBoardTest('Ships')
 
   it('Place ship size 1 on board', () => {
@@ -37,6 +38,24 @@ describe('Place ships on board', () => {
     boat = shipTest('Far out Boat', 6)
     board.placeShip(boat.name, boat.size, ['S', 3])
     expect(board.getCoords()).toStrictEqual([])
+  })
+
+  it('Illegal item: Overlap ship with other ship', () => {
+    board = gameBoardTest('Ships')
+    boat = shipTest('Boat', 3)
+    otherBoat = shipTest('Annoying Boat', 2)
+    board.placeShip(boat.name, boat.size, ['A', 3])
+    board.placeShip(otherBoat.name, otherBoat.size, ['A', 4])
+    expect(board.getCoords()).toStrictEqual([{ title: 'Boat', length: 3, vertical: 'A', horizontal: [3, 5] }])
+  })
+
+  it('Illegal item: Near Overlap', () => {
+    board = gameBoardTest('Ships')
+    boat = shipTest('Wee Boat', 1)
+    otherBoat = shipTest('Wee Annoying Boat', 1)
+    board.placeShip(boat.name, boat.size, ['A', 3])
+    board.placeShip(otherBoat.name, otherBoat.size, ['A', 4])
+    expect(board.getCoords()).toStrictEqual([{ title: 'Wee Boat', length: 1, vertical: 'A', horizontal: [3, 3] }, { title: 'Wee Annoying Boat', length: 1, vertical: 'A', horizontal: [4, 4] }])
   })
 
   xit('Test store ship variables', () => {
@@ -160,6 +179,45 @@ describe('Check for all ships sunk on board', () => {
     board.receiveAttack('E', 4)
     board.receiveAttack('E', 5)
     board.receiveAttack('E', 6)
+    expect(board.allSunk()).toBe(true)
+  })
+
+  it('Not all sunk with one sunk and two ships', () => {
+    board = gameBoardTest('Ships')
+    boat = shipTest('SinkMe', 3)
+    otherBoat = shipTest('NoSinky', 2)
+
+    board.placeShip(boat.name, boat.size, ['E', 4])
+    board.storeShipVariable(boat)
+
+    board.placeShip(otherBoat.name, otherBoat.size, ['A', 2])
+    board.storeShipVariable(otherBoat)
+
+    board.receiveAttack('E', 4)
+    board.receiveAttack('E', 5)
+    board.receiveAttack('E', 6)
+
+    expect(board.allSunk()).toBe(false)
+  })
+
+  it('All sunk with two ships', () => {
+    board = gameBoardTest('Ships')
+    boat = shipTest('SinkMe', 3)
+    otherBoat = shipTest('NoSinky', 2)
+
+    board.placeShip(boat.name, boat.size, ['E', 4])
+    board.storeShipVariable(boat)
+
+    board.placeShip(otherBoat.name, otherBoat.size, ['A', 2])
+    board.storeShipVariable(otherBoat)
+
+    board.receiveAttack('E', 4)
+    board.receiveAttack('E', 5)
+    board.receiveAttack('E', 6)
+
+    board.receiveAttack('A', 2)
+    board.receiveAttack('A', 3)
+
     expect(board.allSunk()).toBe(true)
   })
 })
