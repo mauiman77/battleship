@@ -4,11 +4,18 @@ const player = (name, computer = false) => {
     return [vert[Math.floor(Math.random() * vert.length)], Math.floor(Math.random() * 10)]
   }
 
+  let isTurn = false
+
+  const toggleTurn = () => {
+    isTurn = !isTurn
+    return isTurn
+  }
+
   const attack = (coords = []) => {
     return 0
   }
 
-  return { name, computer, randomAttack }
+  return { name, computer, randomAttack, attack, toggleTurn }
 }
 
 module.exports = player

@@ -32,3 +32,24 @@ describe('Computer attacks', () => {
     expect((objTest[0] >= 'A' && objTest[0] <= 'J') && (objTest[1] >= 0 && objTest[1] <= 9)).toBe(true)
   })
 })
+
+describe('Turns', () => {
+  let player
+  let computer
+
+  let objTest
+
+  let playerBoard
+  let computerBoard
+
+  it('Turn can toggle', () => {
+    player = playerTest('Human', false)
+    expect(player.toggleTurn()).toBe(true)
+  })
+
+  it('Turn can toggle twice', () => {
+    player = playerTest('Human', false)
+    player.toggleTurn()
+    expect(player.toggleTurn()).toBe(false)
+  })
+})
