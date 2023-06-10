@@ -1,0 +1,30 @@
+* {
+  margin: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+main {
+  height: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+div#board {
+  height: 600px;
+  width: 600px;
+  background-color: green;
+
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+}
+
+div#cell {
+  box-sizing: border-box;
+  background-color: grey;
+  border: 0.5px black solid;
+}
