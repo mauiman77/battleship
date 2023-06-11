@@ -11,6 +11,11 @@
 const ui = (function () {
   const vertical = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
 
+  const initialSetup = () => {
+    const main = document.createElement('main')
+    return document.querySelector('body').appendChild(main)
+  }
+
   const makeGrid = (element) => {
     for (let outer = 0; outer <= 9; outer += 1) {
       for (let inner = 0; inner <= 9; inner += 1) {
@@ -23,16 +28,22 @@ const ui = (function () {
     }
     return element
   }
-  return { makeGrid }
+  return { makeGrid, initialSetup }
 })()
 
-function make () {
-  const board = document.createElement('div')
-  board.setAttribute('id', 'board')
-  ui.makeGrid(board)
-  return board
-}
+export default ui
 
-const main = document.querySelector('main')
-main.appendChild(make())
-main.appendChild(make())
+// function make () {
+//   const board = document.createElement('div')
+//   board.setAttribute('id', 'board')
+//   ui.makeGrid(board)
+//   return board
+// }
+
+// const main = document.querySelector('main')
+// main.appendChild(make())
+// main.appendChild(make())
+
+// document.querySelector('#cell.A').classList.add('miss')
+// document.querySelector('#cell.B').classList.add('hit')
+// document.querySelector('#cell.C').classList.add('ship')

@@ -25,6 +25,22 @@ div#board {
 
 div#cell {
   box-sizing: border-box;
-  background-color: grey;
+  background-color: rgb(204, 204, 204);
   border: 0.5px black solid;
+}
+
+div#cell.miss {
+  background-color: rgb(180, 99, 113);
+}
+
+div#cell.hit {
+  background-color: rgb(0, 255, 106);
+}
+
+div#cell:hover {
+  background-color: black;
+}
+
+div#cell.ship {
+  background-color: blue;
 }
