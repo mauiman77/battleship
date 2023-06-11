@@ -68,4 +68,5 @@ const Gameboard = function (name) {
 
   return { name, placeShip, getCoords, receiveAttack, getHitCoords, storeShipVariable, getShipsOnBoard, allSunk }
 }
-module.exports = Gameboard
+// module.exports = Gameboard
+export default Gameboard

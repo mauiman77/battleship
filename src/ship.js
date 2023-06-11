@@ -14,4 +14,5 @@ const Ship = function (name, size) {
   }
   return { name, size, hit, getLives, isSunk }
 }
-module.exports = Ship
+// module.exports = Ship
+export default Ship

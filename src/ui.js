@@ -17,12 +17,12 @@ const ui = (function () {
   }
 
   const makeGrid = (element) => {
-    for (let outer = 0; outer <= 9; outer += 1) {
-      for (let inner = 0; inner <= 9; inner += 1) {
+    for (let outer = 1; outer <= 10; outer += 1) {
+      for (let inner = 1; inner <= 10; inner += 1) {
         const cell = document.createElement('div')
         cell.setAttribute('id', 'cell')
-        cell.classList.add(vertical[outer])
-        cell.classList.add(inner.toString())
+        cell.classList.add(vertical[outer - 1])
+        cell.classList.add('N' + inner.toString())
         element.appendChild(cell)
       }
     }
@@ -32,18 +32,3 @@ const ui = (function () {
 })()
 
 export default ui
-
-// function make () {
-//   const board = document.createElement('div')
-//   board.setAttribute('id', 'board')
-//   ui.makeGrid(board)
-//   return board
-// }
-
-// const main = document.querySelector('main')
-// main.appendChild(make())
-// main.appendChild(make())
-
-// document.querySelector('#cell.A').classList.add('miss')
-// document.querySelector('#cell.B').classList.add('hit')
-// document.querySelector('#cell.C').classList.add('ship')
